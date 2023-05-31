@@ -37,5 +37,7 @@ while (comando !== 'Salir') {
             alert("Hola " + nombre + ", tu mail es: " + mail);
             continuar = confirm("Confirma y estaremos en contacto contigo lo antes posible.")
             break;
+            default:
+                alert("Error: No se reconoció ningún comando! Intentelo otra vez!!")
     }
 }
