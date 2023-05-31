@@ -1,4 +1,4 @@
-// Consola de comandos usando WHILE, FOR, Y SWITCH
+
 let comando;
 
 while (comando !== 'Salir') {
@@ -17,7 +17,6 @@ while (comando !== 'Salir') {
                 alert("No hay ese color en stock");
             }
             break;
-            
             case 'Mostrar cuotas':
                 let cuotas = 1;
                 for (let i = 0; i < 3; i++) {
