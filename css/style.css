@@ -78,7 +78,10 @@ header {
     cursor: pointer;
     font-size: 1.5rem;
   }
+  .partes{
+    display: inline-block;
+  }
   .partes img {
     width: 300px;
-    height: auto;
+    height: 300px;
   }

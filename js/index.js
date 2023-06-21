@@ -34,9 +34,13 @@ function comprar(partes) {
 
 // Función encargada de quitar items del carrito
 function vender(indice) {
+  
   // Obtengo el item del array para usar la propiedad precio
   const partes = carrito[indice];
-  // Resto del total el precio del item
+  if(carrito.includes(partes)){
+    alert("El producto " + partes.nombre + " se saco de tu carrito.");
+  }
+  // Resto del total el precio 
   total -= partes.precio;
   // Con el índice uso splice y lo borro del array
   carrito.splice(indice, 1);
