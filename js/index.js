@@ -56,7 +56,7 @@ function actualizarHTML() {
     let elementoPartes = `
       <li class="partes">
         <img src="img/${partes.imagen}">
-        <button onclick="vender(${indicePartes})">Vender</button>
+        <button onclick="vender(${indicePartes})">Devolver</button>
       </li>`;
     elementoCarrito.innerHTML += elementoPartes;
   }
