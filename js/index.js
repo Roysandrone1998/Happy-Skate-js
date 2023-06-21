@@ -1,43 +1,73 @@
-// Consola de comandos 
-let comando;
-
-while (comando !== 'Salir') {
-    comando = prompt('Ingrese el comando:\n\n- Color filamentos\n- Mostrar cuotas\n- Contactanos\n- Salir');
-
-    switch (comando) {
-        case 'Color filamentos':
-            let colorProducto = prompt('Ingrese el color\n\n- Negro\n- Gris espacial\n- Bronce');
-            if (colorProducto === "Negro") {
-                alert("El color " + colorProducto + " está en stock.");
-            } else if (colorProducto === "Gris espacial") {
-                alert("El color '" + colorProducto + "' está en stock.");
-            } else if (colorProducto === "Bronce") {
-                alert("El color '" + colorProducto + "' está en stock.");
-            } else {
-                alert("No hay ese color en stock.");
-            }
-            break;
-
-        case 'Mostrar cuotas':
-            let cuotas = 1;
-            for (let i = 0; i < 3; i++) {
-                alert('Puedes pagar en ' + cuotas + ' cuotas sin interés.');
-                if (i === 0) {
-                    cuotas += 2;
-                } else {
-                    cuotas += 3;
-                }
-            }
-            break;
-
-        case 'Contactanos':
-            let nombre = prompt("Ingresa tu nombre.");
-            let mail = prompt("Ingresa tu mail.");
-            let mensaje = prompt("Dejanos tu mensaje o pedido.");
-            alert("Hola " + nombre + ", tu mail es: " + mail);
-            continuar = confirm("Confirma y estaremos en contacto contigo lo antes posible.")
-            break;
-            default:
-                alert("Error: No se reconoció ningún comando! Intentelo otra vez!!")
-    }
+// Clase molde para los objetos del carrito
+class Partes {
+  // Parámetros para crear item del carrito
+  constructor(nombre, precio, imagen) {
+    this.nombre = nombre;
+    this.precio = precio;
+    this.imagen = imagen;
+  }
 }
+
+// Variables globales
+// Array donde guardamos todos los items comprados
+const carrito = [];
+// Items del carrito
+const trucks = new Partes("Trucks", 5000, "truck.jfif");
+const ruedas = new Partes("Ruedas", 4200, "rueda.jfif");
+const rulemanes = new Partes("Rulemanes", 3000, "rulemanes.jfif");
+// Vendedor
+const objetos = [trucks, ruedas, rulemanes];
+// Total
+let total = 0;
+// Elementos
+const elementoTotal = document.querySelector("#total");
+const elementoCarrito = document.querySelector("#carrito");
+elementoTotal.innerText = total;
+
+const btnComprarTrucks = document.querySelector("#btnComprarTrucks");
+const btnComprarRuedas = document.querySelector("#btnComprarRuedas");
+const btnComprarRulemanes = document.querySelector("#btnComprarRulemanes");
+
+console.log(carrito);
+// Funciones regulares
+function comprar(partes) {
+  carrito.push(partes);
+  total += partes.precio;
+  actualizarHTML();
+}
+
+// Función encargada de quitar items del carrito
+function vender(indice) {
+  // Obtengo el item del array para usar la propiedad precio
+  const partes = carrito[indice];
+  // Resto del total el precio del item
+  total -= partes.precio;
+  // Con el índice uso splice y lo borro del array
+  carrito.splice(indice, 1);
+  actualizarHTML(); // Actualizo el HTML
+}
+// Se va a encargar de renderizar todos las partes del carrito
+function actualizarHTML() {
+  // Vacío el elemento del carrito
+  elementoCarrito.innerHTML = "";
+  // Recorre el array carrito
+  for (const partes of carrito) {
+    let indicePartes = carrito.indexOf(partes);
+    let elementoPartes = `
+      <li class="partes">
+        <img src="img/${partes.imagen}">
+        <button onclick="vender(${indicePartes})">Vender</button>
+      </li>`;
+    elementoCarrito.innerHTML += elementoPartes;
+  }
+
+  // Actualiza el total
+  elementoTotal.innerText = total;
+}
+
+
+
+
+
+
+
