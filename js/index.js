@@ -24,11 +24,7 @@ const elementoTotal = document.querySelector("#total");
 const elementoCarrito = document.querySelector("#carrito");
 elementoTotal.innerText = total;
 
-const btnComprarTrucks = document.querySelector("#btnComprarTrucks");
-const btnComprarRuedas = document.querySelector("#btnComprarRuedas");
-const btnComprarRulemanes = document.querySelector("#btnComprarRulemanes");
 
-console.log(carrito);
 // Funciones regulares
 function comprar(partes) {
   carrito.push(partes);
