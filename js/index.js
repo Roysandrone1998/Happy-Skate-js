@@ -27,7 +27,7 @@ class BaseDeDatos {
   }
 }
 
-// Clase carrito, para manipular los productos de nuestro carrito
+// Clase carrito
 class Carrito {
   constructor() {
     // Cargamos del storage
@@ -40,18 +40,17 @@ class Carrito {
     this.listar();
   }
 
-  // Verificamos si el producto está en el carrito. Usamos desestructuración en el parámetro:
-  // recibimos el objeto producto en el parámetro pero solo usamos la propiedad id
+  // Verificamos si el producto está en el carrito
   estaEnCarrito({ id }) {
     return this.carrito.find((producto) => producto.id === id);
   }
 
-  // Método para agregar el producto al carrito
+  // agregar el producto al carrito
   agregar(producto) {
-    // Si el producto está en el carrito, lo guardo en esta variable
+    // lo guardo 
     const productoEnCarrito = this.estaEnCarrito(producto);
     if (productoEnCarrito) {
-      // Si está en el carrito, le sumo la cantidad
+      //  sumo la cantidad
       productoEnCarrito.cantidad++;
     } else {
       // Si no está, lo agrego al carrito
@@ -62,10 +61,9 @@ class Carrito {
     this.listar();
   }
 
-  // Método para quitar o restar productos del carrito
+  // quitar productos del carrito
   quitar(id) {
-    // Recibimos como parámetro el ID del producto, con ese ID buscamos el índice
-    // del producto para poder usar el splice y borrarlo en caso de que haga falta
+
     const indice = this.carrito.findIndex((producto) => producto.id === id);
     // Si la cantidad del producto es mayor a 1, le resto
     if (this.carrito[indice].cantidad > 1) {
@@ -86,7 +84,7 @@ class Carrito {
     this.total = 0;
     this.totalProductos = 0;
     const divCarrito = document.querySelector("#carrito");
-    // Recorremos todos los productos del carrito y los agregamos al div #carrito
+    // Recorremos todos los productos del carrito 
     divCarrito.innerHTML = "";
     for (const producto of this.carrito) {
       divCarrito.innerHTML += `
