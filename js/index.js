@@ -4,9 +4,11 @@ class BaseDeDatos {
     this.productos = [];
     // Vamos a cargar todos los productos que tengamos
     // Productos
-    this.agregarRegistro(1, "Trucks", 5000, "trucks", "truck.jfif");
-    this.agregarRegistro(2, "Ruedas", 4200, "ruedas", "rueda.jfif");
-    this.agregarRegistro(3, "Rulemanes", 5000, "rulemanes", "rulemanes.jfif");
+    this.agregarRegistro(1, "Trucks Lab", 5000, "trucks", "truck.jfif");
+    this.agregarRegistro(2, "Ruedas", 3200, "ruedas", "rueda.jfif");
+    this.agregarRegistro(3, "Rulemanes", 4500, "rulemanes", "rulemanes.jfif");
+    this.agregarRegistro(4, "Trucks Sk8", 5500, "trucks", "truck2.jfif")
+    this.agregarRegistro(5, "Ruedas Wodoo", 2200, "ruedas", "rueda2.jfif");
   }
 //registro de productos
   agregarRegistro(id, nombre, precio, categoria, imagen) {
@@ -93,7 +95,7 @@ class Carrito {
       <div class="card-body">
           <h5 class="card-title">${producto.nombre}.</h5>
           <p class="card-text">$${producto.precio}</p>
-          <p><a href="#" class="btnIndex" data-id="${producto.id}">Quitar</a></p>
+          <p><a href="#" class="btnQuitar" data-id="${producto.id}">Quitar</a></p>
         </div>
       `;
       // Actualizamos los totales
@@ -101,7 +103,7 @@ class Carrito {
       this.totalProductos += producto.cantidad;
     }
     // Botones de quitar
-    const botonesQuitar = document.querySelectorAll(".btnIndex");
+    const botonesQuitar = document.querySelectorAll(".btnQuitar");
     for (const boton of botonesQuitar) {
       boton.addEventListener("click", (event) => {
         event.preventDefault();
@@ -146,14 +148,13 @@ function cargarProductos(productos) {
     <div class="card-body">
         <h5 class="card-title">${producto.nombre}.</h5>
         <p class="card-text">$${producto.precio}</p>
-        <p><a href="#" class="btnIndex" data-id="${producto.id}">Agregar al carrito</a></p>
+        <p><a href="#" class="btnAgregar" data-id="${producto.id}">Agregar</a></p>
       </div>
     `;
   }
   // Botones de agregar al carrito
-  // Botones agregar al carrito: como no sabemos cuántos productos hay en nuestra base de datos,
-  // buscamos TODOS los botones que hayamos renderizado recién, y los recorremos uno por uno
-  const botonesAgregar = document.querySelectorAll(".btnIndex");
+  
+  const botonesAgregar = document.querySelectorAll(".btnAgregar");
   for (const boton of botonesAgregar) {
     // Le agregamos un evento click a cada uno
     boton.addEventListener("click", (event) => {

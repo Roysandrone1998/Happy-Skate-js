@@ -56,7 +56,15 @@ header {
     justify-content: center;
     text-align: center;
   }
-  .btnIndex{
+  .btnQuitar{
+    margin: 3rem;
+    padding: 1.5%;
+    background-color: rgb(226, 161, 212);
+    color: rgb(0, 0, 0);
+    border: 1px solid rgb(0, 0, 0);
+    border-radius: 0.5rem; 
+  }
+  .btnAgregar{
     margin: 3rem;
     padding: 1.5%;
     background-color: rgb(226, 161, 212);
