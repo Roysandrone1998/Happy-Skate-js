@@ -1,34 +1,27 @@
 class BaseDeDatos {
   constructor() {
-    // Array de la base de datos
+    //  base de datos
     this.productos = [];
     // Vamos a cargar todos los productos que tengamos
-    // Con una simple línea de código, vamos a ir cargando todos los productos que tengamos
+    // Productos
     this.agregarRegistro(1, "Trucks", 5000, "trucks", "truck.jfif");
     this.agregarRegistro(2, "Ruedas", 4200, "ruedas", "rueda.jfif");
     this.agregarRegistro(3, "Rulemanes", 5000, "rulemanes", "rulemanes.jfif");
   }
-
-  // Método que crea el objeto producto y lo almacena en el array con un push
+//registro de productos
   agregarRegistro(id, nombre, precio, categoria, imagen) {
     const producto = new Producto(id, nombre, precio, categoria, imagen);
     this.productos.push(producto);
   }
 
-  // Nos retorna el array con todos los productos de la base de datos
   traerRegistros() {
     return this.productos;
   }
-
-  // Busca un producto por ID, si lo encuentra lo retorna en forma de objeto
-  // A tener en cuenta: Los IDs son únicos, debe haber uno solo por producto para evitar errores
   registroPorId(id) {
     return this.productos.find((producto) => producto.id === id);
   }
 
-  // Retorna una lista (array) de productos que incluyan en el nombre los caracteres
-  // que le pasamos por parámetro. Si le pasamos "a" como parámetro, va a buscar y
-  // devolver todos los productos que tengan la letra "a" en el nombre del producto
+  // Retorna una lista con los productos
   registrosPorNombre(palabra) {
     return this.productos.filter((producto) => producto.nombre.toLowerCase().includes(palabra));
   }
@@ -43,8 +36,7 @@ class Carrito {
     this.carrito = carritoStorage || [];
     this.total = 0;
     this.totalProductos = 0;
-    // Apenas se crea el carrito, que llame al método listar para que
-    // renderice todos los productos que haya en el storage
+
     this.listar();
   }
 
