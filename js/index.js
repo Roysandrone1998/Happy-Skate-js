@@ -25,7 +25,6 @@ class BaseDeDatos {
   }
   }
 
-
 // Clase carrito
 class Carrito {
   constructor() {
@@ -186,7 +185,7 @@ inputBuscar.addEventListener("keyup", (event) => {
   event.preventDefault();
   const palabra = inputBuscar.value;
   cargarProductos(bd.registrosPorNombre(palabra.toLowerCase()));
-  // Pedimos a nuestra base de datos que nos traiga todos los registros
+  // Pedimos a nuestra base de datos que nos traiga todos los registrossa
   const productos = bd.registrosPorNombre(palabra.toLowerCase());
   // Lo mostramos en el HTML
   cargarProductos(productos);
