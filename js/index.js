@@ -57,7 +57,18 @@ class Carrito {
     }
     // Actualizo el carrito en el HTML
     this.listar();
+    // Usando toastify
+    Toastify({
+      text: `${producto.nombre} Fue agregado al carrito`,
+      position: "center",
+      className: "info",
+      gravity: "top",
+      style: {
+        background: "linear-gradient(90deg, rgb(206, 74, 177) 0%, rgb(212, 116, 183) 40%,  rgb(233, 37, 37) 100%)",
+      },
+    }).showToast();
   }
+
 
   // quitar productos del carrito
   quitar(id) {
@@ -112,6 +123,7 @@ class Carrito {
     spanCantidadProductos.innerText = this.totalProductos;
     spanTotalCarrito.innerText = this.total;
   }
+  
 }
 
 // Clase "molde" para los productos
@@ -173,7 +185,20 @@ function cargarProductos(productos) {
     });
   }
 }
-
+// Mensaje de compra realizada con la librería Sweet Alert
+botonComprar.addEventListener("click", (event) => {
+  event.preventDefault();
+  Swal.fire({
+    title: "¡Compra realizada con exito.!",
+    text: "Sigue tu pedido por mail.",
+    icon: "success",
+    confirmButtonText: "Aceptar",
+  });
+  // Vacíamos el carrito
+  carrito.vaciar();
+  // Ocultamos el carrito en el HTML
+  document.querySelector("section").classList.add("ocultar");
+});
 // Evento buscador
 formBuscar.addEventListener("submit", (event) => {
   event.preventDefault();
