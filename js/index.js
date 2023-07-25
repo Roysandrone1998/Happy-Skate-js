@@ -4,11 +4,18 @@ class BaseDeDatos {
     this.productos = [];
     // Vamos a cargar todos los productos que tengamos
     // Productos
-    this.agregarRegistro(1, "Trucks Lab", 5000, "trucks", "truck.jfif");
-    this.agregarRegistro(2, "Ruedas", 3200, "ruedas", "rueda.jfif");
-    this.agregarRegistro(3, "Rulemanes", 4500, "rulemanes", "rulemanes.jfif");
-    this.agregarRegistro(4, "Trucks Sk8", 5500, "trucks", "truck2.jfif")
-    this.agregarRegistro(5, "Ruedas Wodoo", 2200, "ruedas", "rueda2.jfif");
+    this.agregarRegistro(1, "Trucks Lab", 5000, "Trucks", "truck.jfif");
+    this.agregarRegistro(2, "Trucks Sk8", 5500, "Trucks", "truck2.jfif")
+    this.agregarRegistro(3, "Rulemanes Woodo", 4200, "Rulemanes", "rulemanes2.jfif");
+    this.agregarRegistro(4, "Rulemanes", 4500, "Rulemanes", "rulemanes.jfif");
+    this.agregarRegistro(5, "Ruedas Martinez", 3200, "Ruedas", "rueda.jfif");
+    this.agregarRegistro(6, "Ruedas Wodoo", 2200, "Ruedas", "rueda2.jfif");
+    this.agregarRegistro(7, "Tabla Tuxs", 12000, "Tablas", "tabla1.jfif");
+    this.agregarRegistro(8, "Tabla NN", 13000, "Tablas", "tabla2.jfif");
+    this.agregarRegistro(9, "Tabla Zero", 15000, "Tablas", "tabla3.jfif");
+    this.agregarRegistro(10, "Skate Element", 25000, "Skate Completo", "skateC1.jfif");
+    this.agregarRegistro(11, "Skate NN", 20000, "Skate Completo", "skateC2.jfif");
+    this.agregarRegistro(12, "Skate Element", 25000, "Skate Completo", "skateC3.jfif");
   }
 //registro de productos
   agregarRegistro(id, nombre, precio, categoria, imagen) {
@@ -27,7 +34,11 @@ class BaseDeDatos {
   registrosPorNombre(palabra) {
     return this.productos.filter((producto) => producto.nombre.toLowerCase().includes(palabra));
   }
-}
+  registrosPorCategorias(categoria) {
+    return this.productos.filter((producto) => producto.categoria === categoria);
+  }
+  }
+
 
 // Clase carrito
 class Carrito {
@@ -137,6 +148,16 @@ const divProductos = document.querySelector("#productos");
 const formBuscar = document.querySelector("#formBuscar");
 const inputBuscar = document.querySelector("#inputBuscar");
 const botonCarrito = document.querySelector("section h1");
+const botonesCategorias = document.querySelectorAll(".btnCategorias");
+
+// Botones categorías
+botonesCategorias.forEach((boton) => {
+  boton.addEventListener("click", (event) => {
+    event.preventDefault();
+    const productosPorCategoria = bd.registrosPorCategorias(boton.innerText);
+    cargarProductos(productosPorCategoria);
+  });
+});
 
 // Muestra los registros de la base de datos en nuestro HTML
 function cargarProductos(productos) {
