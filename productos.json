@@ -1,0 +1,86 @@
+[
+    {
+        "id": "1",
+        "nombre": "Trucks Lab",
+        "precio": "5000",
+        "categoria": "Trucks",
+        "imagen": "truck.jfif"
+    },
+    {
+        "id": "2",
+        "nombre": "Trucks Sk8",
+        "precio": "5500",
+        "categoria": "Trucks",
+        "imagen": "truck2.jfif"
+    },
+    {
+        "id": "3",
+        "nombre": "Rulemanes Woodo",
+        "precio": "4200",
+        "categoria": "Rulemanes",
+        "imagen": "rulemanes2.jfif"
+    },
+    {
+        "id": "4",
+        "nombre": "Rulemanes",
+        "precio": "4500",
+        "categoria": "Rulemanes",
+        "imagen": "rulemanes.jfif"
+    },
+    {
+        "id": "5",
+        "nombre": "Ruedas Martinez",
+        "precio": "3200",
+        "categoria": "Ruedas",
+        "imagen": "rueda.jfif"
+    },
+    {
+        "id": "6",
+        "nombre": "Ruedas Woodo",
+        "precio": "3000",
+        "categoria": "Ruedas",
+        "imagen": "rueda2.jfif"
+    },
+    {
+        "id": "7",
+        "nombre": "Tabla Tuxs",
+        "precio": "12000",
+        "categoria": "Tablas",
+        "imagen": "tabla1.jfif"
+    },
+    {
+        "id": "8",
+        "nombre": "Tabla NN",
+        "precio": "13000",
+        "categoria": "Tablas",
+        "imagen": "tabla2.jfif"
+    },
+    {
+        "id": "9",
+        "nombre": "Tabla Zero",
+        "precio": "15000",
+        "categoria": "Tablas",
+        "imagen": "tabla3.jfif"
+    },
+    {
+        "id": "10",
+        "nombre": "Skate Element",
+        "precio": "25000",
+        "categoria": "Skate Completo",
+        "imagen": "skateC1.jfif"
+    },
+    {
+        "id": "11",
+        "nombre": "Skate NN",
+        "precio": "20000",
+        "categoria": "Skate Completo",
+        "imagen": "skateC2.jfif"
+    },
+    {
+        "id": "12",
+        "nombre": "Skate Element",
+        "precio": "25000",
+        "categoria": "Skate Completo",
+        "imagen": "skateC3.jfif"
+    }
+]

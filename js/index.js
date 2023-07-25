@@ -3,29 +3,15 @@ class BaseDeDatos {
     //  base de datos
     this.productos = [];
     // Vamos a cargar todos los productos que tengamos
-    // Productos
-    this.agregarRegistro(1, "Trucks Lab", 5000, "Trucks", "truck.jfif");
-    this.agregarRegistro(2, "Trucks Sk8", 5500, "Trucks", "truck2.jfif")
-    this.agregarRegistro(3, "Rulemanes Woodo", 4200, "Rulemanes", "rulemanes2.jfif");
-    this.agregarRegistro(4, "Rulemanes", 4500, "Rulemanes", "rulemanes.jfif");
-    this.agregarRegistro(5, "Ruedas Martinez", 3200, "Ruedas", "rueda.jfif");
-    this.agregarRegistro(6, "Ruedas Wodoo", 2200, "Ruedas", "rueda2.jfif");
-    this.agregarRegistro(7, "Tabla Tuxs", 12000, "Tablas", "tabla1.jfif");
-    this.agregarRegistro(8, "Tabla NN", 13000, "Tablas", "tabla2.jfif");
-    this.agregarRegistro(9, "Tabla Zero", 15000, "Tablas", "tabla3.jfif");
-    this.agregarRegistro(10, "Skate Element", 25000, "Skate Completo", "skateC1.jfif");
-    this.agregarRegistro(11, "Skate NN", 20000, "Skate Completo", "skateC2.jfif");
-    this.agregarRegistro(12, "Skate Element", 25000, "Skate Completo", "skateC3.jfif");
+
   }
 //registro de productos
-  agregarRegistro(id, nombre, precio, categoria, imagen) {
-    const producto = new Producto(id, nombre, precio, categoria, imagen);
-    this.productos.push(producto);
-  }
-
-  traerRegistros() {
+  async traerRegistros() {
+    const response = await fetch("./productos.json");
+    this.productos = await response.json();
     return this.productos;
   }
+    
   registroPorId(id) {
     return this.productos.find((producto) => producto.id === id);
   }
@@ -150,12 +136,11 @@ const inputBuscar = document.querySelector("#inputBuscar");
 const botonCarrito = document.querySelector("section h1");
 const botonesCategorias = document.querySelectorAll(".btnCategorias");
 
-// Botones categorías
 botonesCategorias.forEach((boton) => {
   boton.addEventListener("click", (event) => {
     event.preventDefault();
     const productosPorCategoria = bd.registrosPorCategorias(boton.innerText);
-    cargarProductos(productosPorCategoria);
+    cargarProductos(productosPorCategoria); 
   });
 });
 
@@ -199,22 +184,26 @@ formBuscar.addEventListener("submit", (event) => {
 // Buscador: al soltar una tecla se ejecuta el evento keyup
 inputBuscar.addEventListener("keyup", (event) => {
   event.preventDefault();
-  // Obtenemos el atributo value del input
   const palabra = inputBuscar.value;
   cargarProductos(bd.registrosPorNombre(palabra.toLowerCase()));
   // Pedimos a nuestra base de datos que nos traiga todos los registros
-  // que coincidan con la palabra que pusimos en nuestro input
   const productos = bd.registrosPorNombre(palabra.toLowerCase());
   // Lo mostramos en el HTML
   cargarProductos(productos);
 });
+
+
+
+// Objeto carrito
+const carrito = new Carrito();
+
 
 // Trigger para ocultar/mostrar el carrito
 botonCarrito.addEventListener("click", (event) => {
   document.querySelector("section").classList.toggle("ocultar");
 });
 
-// Objeto carrito
-// Objeto carrito: lo instanciamos a lo último de nuestro archivo JavaScript
-// para asegurarnos que TODO esté declarado e inicializado antes de crear el carrito
-const carrito = new Carrito();
+
+
+
+bd.traerRegistros().then((productos) => cargarProductos(productos));
