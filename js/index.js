@@ -11,11 +11,9 @@ class BaseDeDatos {
     this.productos = await response.json();
     return this.productos;
   }
-    
   registroPorId(id) {
     return this.productos.find((producto) => producto.id === id);
   }
-
   // Retorna una lista con los productos
   registrosPorNombre(palabra) {
     return this.productos.filter((producto) => producto.nombre.toLowerCase().includes(palabra));
@@ -32,12 +30,15 @@ class Carrito {
     const carritoStorage = JSON.parse(localStorage.getItem("carrito"));
     // Inicializamos variables
     this.carrito = carritoStorage || [];
-    this.total = 0;
-    this.totalProductos = 0;
+    this.baseDeDatos = new BaseDeDatos();
 
     this.listar();
   }
-
+  vaciar() {
+    this.carrito = []; // Vaciamos el array de productos del carrito
+    localStorage.setItem("carrito", JSON.stringify(this.carrito)); // Actualizamos el storage
+    this.listar(); // Actualizamos la visualización del carrito en el HTML
+}
   // Verificamos si el producto está en el carrito
   estaEnCarrito({ id }) {
     return this.carrito.find((producto) => producto.id === id);
@@ -72,7 +73,6 @@ class Carrito {
 
   // quitar productos del carrito
   quitar(id) {
-
     const indice = this.carrito.findIndex((producto) => producto.id === id);
     // Si la cantidad del producto es mayor a 1, le resto
     if (this.carrito[indice].cantidad > 1) {
@@ -85,30 +85,62 @@ class Carrito {
     localStorage.setItem("carrito", JSON.stringify(this.carrito));
     // Actualiza el carrito en el HTML
     this.listar();
-  }
+
+   // Mostrar notificación de que el producto fue quitado
+  const productoQuitado = bd.registroPorId(id); // Utilizamos 'bd' en lugar de 'this.baseDeDatos'
+  if (productoQuitado) {
+    Toastify({
+      text: `${productoQuitado.nombre} fue quitado del carrito`,
+      duration: 3000,
+      newWindow: true,
+      close: true,
+      gravity: "top",
+      position: "center",
+      style: {
+        background: "linear-gradient(90deg, rgb(206, 74, 177) 0%, rgb(212, 116, 183) 40%,  rgb(233, 37, 37) 100%)",
+      },
+      stopOnFocus: true,
+    }).showToast();
+    }
+}
+  
 
   // Actualizar el HTML de nuestro carrito
   listar() {
     // Reiniciamos las variables
     this.total = 0;
     this.totalProductos = 0;
-    const divCarrito = document.querySelector("#carrito");
-    // Recorremos todos los productos del carrito 
+    const divCarrito = document.querySelector("#carritoItems");
+    const divCarritoTotales = document.querySelector("#carritoTotales");
+
+    // Limpiamos el contenido del offcanvas antes de actualizarlo
     divCarrito.innerHTML = "";
+    divCarritoTotales.innerHTML = "";
+
     for (const producto of this.carrito) {
       divCarrito.innerHTML += `
-      <div class="card" > 
-      <img src="img/${producto.imagen}" class="card-img-top" alt="trucks">
-      <div class="card-body">
-          <h5 class="card-title">${producto.nombre}.</h5>
-          <p class="card-text">$${producto.precio}</p>
-          <p><a href="#" class="btnQuitar" data-id="${producto.id}">Quitar</a></p>
+        <div class="card">
+        <img src="img/${producto.imagen}" class="card-img-top" alt="pructo">
+          <div class="card-body">
+            <h5 class="card-title">${producto.nombre}</h5>
+            <p class="card-text">Cantidad: ${producto.cantidad}</p>
+            <p class="card-text">Precio unitario: $${producto.precio}</p>
+            <p class="card-text">Subtotal: $${producto.precio * producto.cantidad}</p>
+            <p><a href="#" class="btnQuitar" data-id="${producto.id}">Quitar</a></p>
+          </div>
         </div>
       `;
+
       // Actualizamos los totales
       this.total += producto.precio * producto.cantidad;
       this.totalProductos += producto.cantidad;
     }
+
+    divCarritoTotales.innerHTML = `
+      <p>Total Productos: <span>${this.totalProductos}</span></p>
+      <p>Total Carrito: $<span>${this.total}</span></p>
+    `;
+  
     // Botones de quitar
     const botonesQuitar = document.querySelectorAll(".btnQuitar");
     for (const boton of botonesQuitar) {
@@ -119,9 +151,9 @@ class Carrito {
     }
     // Actualizamos variables carrito
     const spanCantidadProductos = document.querySelector("#cantidadProductos");
-    const spanTotalCarrito = document.querySelector("#totalCarrito");
+    
     spanCantidadProductos.innerText = this.totalProductos;
-    spanTotalCarrito.innerText = this.total;
+    
   }
   
 }
@@ -144,9 +176,13 @@ const bd = new BaseDeDatos();
 const divProductos = document.querySelector("#productos");
 const formBuscar = document.querySelector("#formBuscar");
 const inputBuscar = document.querySelector("#inputBuscar");
-const botonCarrito = document.querySelector("section h1");
+const botonCarrito = document.querySelector("section h3");
 const botonesCategorias = document.querySelectorAll(".btnCategorias");
+const botonComprar = document.querySelector("#botonComprar");
 
+
+
+// botones de categoria
 botonesCategorias.forEach((boton) => {
   boton.addEventListener("click", (event) => {
     event.preventDefault();
@@ -195,6 +231,7 @@ botonComprar.addEventListener("click", (event) => {
     confirmButtonText: "Aceptar",
   });
   // Vacíamos el carrito
+  
   carrito.vaciar();
   // Ocultamos el carrito en el HTML
   document.querySelector("section").classList.add("ocultar");
@@ -222,12 +259,13 @@ inputBuscar.addEventListener("keyup", (event) => {
 const carrito = new Carrito();
 
 
-// Trigger para ocultar/mostrar el carrito
-botonCarrito.addEventListener("click", (event) => {
+
+// Toggle para ocultar/mostrar el carrito
+botonCarrito.addEventListener("click", () => {
   document.querySelector("section").classList.toggle("ocultar");
 });
 
 
-
-
 bd.traerRegistros().then((productos) => cargarProductos(productos));
+
+

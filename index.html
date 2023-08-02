@@ -38,6 +38,11 @@
                 </form>
             </div>
         </section >
+        <div id="carritoIcono carrito" class="carrito-icon carrito">
+            <button type="button" class="btn fas fa-shopping-cart" data-bs-toggle="offcanvas" data-bs-target="#carritoOffcanvas">
+                <span class="badge bg-light" id="cantidadProductos">0</span>
+                </button>
+        </div>
         
         <section class="mainIndex">
             <!-- Productos -->
@@ -49,22 +54,28 @@
             </section>
             
         </section>
-            <section>             <!-- Carrito -->
-            <div class="datoindex">
-                <!-- Agregamos el ícono del carrito aquí -->
-            <div id="carritoIcono carrito" class="carrito-icon carrito">
-                <i class="fas fa-shopping-cart"></i>
-            </div>
-            <h3>Carrito (<span id="cantidadProductos">0</span>)</h3>
-            <section class="ocultar">
-                <div id="carrito">
-                    <!-- Acá vamos a cargar los productos que estén en el carrito -->
-                </div>
-                <h3>Total: $<span id="totalCarrito">0.</span></h3>
-                <a href="#" id="botonComprar" class="btnComprar oculto">Comprar</a>
-            </section>
-            </div>
-            </section>
+            
+            <!-- Botón para abrir el offcanvas del carrito -->
+
+    
+                    <!-- Offcanvas del carrito -->
+<div class="offcanvas offcanvas-end" tabindex="-1" id="carritoOffcanvas">
+    <div class="offcanvas-header">
+        <h5 class="offcanvas-title">Carrito de compras</h5>
+        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Cerrar"></button>
+    </div>
+    <div class="offcanvas-body">
+        <div id="carritoItems">
+        <!-- Aquí se mostrarán los productos del carrito -->
+        </div>
+        <div id="carritoTotales">
+        <!-- Aquí se mostrarán los totales del carrito -->
+        <p>Total Productos: <span id="cantidadProductos">0</span></p>
+        <p>Total Carrito: $<span id="totalCarrito">0</span></p>
+        </div>
+        <button id="botonComprar" class="btn btn-success">Comprar</button>
+    </div>
+    </div>
     </main>
     <footer>
     
